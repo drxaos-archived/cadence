@@ -82,13 +82,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.grails.plugins</groupId>-->
-            <!--<artifactId>cache</artifactId>-->
-            <!--<version>1.0.1</version>-->
-            <!--<type>zip</type>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.grails.plugins</groupId>
+            <artifactId>cache</artifactId>
+            <version>1.0.1</version>
+            <type>zip</type>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- OTHER -->
 
@@ -183,6 +183,7 @@
                     </filesets>
                 </configuration>
             </plugin>
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -197,7 +198,8 @@
                 <artifactId>grails-maven-plugin</artifactId>
                 <version>${grails.version}</version>
                 <configuration>
-                    <fork/>
+                    <fork>false</fork>
+                    <forkDebug>false</forkDebug>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>

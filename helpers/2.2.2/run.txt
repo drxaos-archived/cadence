@@ -1,0 +1,7 @@
+=== Debug ===
+Command line:   org.grails:grails-maven-plugin:run-app -e
+VM options:     -Xmx2g -Xms512m -XX:MaxPermSize=512m -javaagent:helpers/2.2.2/springloaded-core-1.1.1.jar -noverify -Dspringloaded-profile=grails
+
+=== Dependency report ===
+Command line:   org.grails:grails-maven-plugin:exec
+Properties:     command = dependency-report
