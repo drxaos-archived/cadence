@@ -1,8 +1,4 @@
 dataSource {
-    pooled = true
-    driverClassName = "com.mysql.jdbc.Driver"
-    username = "root"
-    password = "root"
     dialect = "ru.ihc.cadence.hibernate.MySQLDialect"
 }
 
@@ -17,10 +13,8 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost:3306/cadence_dev"
+            jndiName = "java:comp/env/jdbc/cadence"
             logSql = false
-//            username = "root"
-//            password = "root"
         }
     }
     test {
@@ -28,8 +22,10 @@ environments {
             dbCreate = ""
             url = "jdbc:mysql://localhost:3306/cadence_test"
             logSql = false
-//            username = "root"
-//            password = "root"
+            pooled = true
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "root"
+            password = "root"
         }
     }
     production {

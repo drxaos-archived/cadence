@@ -70,8 +70,8 @@
     </servlet-mapping>
 
     <session-config>
-        <!-- 30 minutes -->
-        <session-timeout>30</session-timeout>
+        <!-- 70 minutes -->
+        <session-timeout>70</session-timeout>
     </session-config>
 
     <welcome-file-list>
@@ -84,4 +84,10 @@
         <welcome-file>index.gsp</welcome-file>
     </welcome-file-list>
 
+    <resource-ref>
+        <description>cadence db connection</description>
+        <res-ref-name>jdbc/cadence</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>

@@ -40,3 +40,7 @@ grails.project.dependency.resolution = {
         // pom.xml
     }
 }
+
+grails.war.resources = { stagingDir ->
+    delete{fileset file: "${stagingDir}/WEB-INF/jetty-env.xml"}
+}
