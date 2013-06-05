@@ -1,13 +1,16 @@
 package ru.ihc.cadence.webhooks
 
-import grails.converters.JSON
 import ru.ihc.cadence.exceptions.domain.DomainPersistException
 import ru.ihc.cadence.utils.DateUtils
 
 class JiraWebhooksService {
 
+    def countUpdates() {
+        return JiraUpdate.count()
+    }
+
     def parseAndSave(json) {
-        if (json == null){
+        if (json == null) {
             throw new IllegalArgumentException("Json must not be null")
         }
 

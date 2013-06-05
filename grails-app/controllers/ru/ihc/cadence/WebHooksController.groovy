@@ -6,6 +6,15 @@ class WebHooksController {
 
     def jiraWebhooksService
 
+    def index() {
+        return [
+                jira: jiraWebhooksService.countUpdates(),
+                fisheye: "N/A",
+                bamboo: "N/A",
+                git: "N/A",
+        ]
+    }
+
     def jira() {
         try {
             def json = request.JSON
