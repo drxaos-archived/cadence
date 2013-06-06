@@ -21,6 +21,7 @@ class WebHooksController {
             jiraWebhooksService.parseAndSave(json)
             render([status: "ok"] as JSON)
         } catch (JSONException) {
+            log.info("Got invalid JSON")
             render([status: "error", message: "Can't parse JSON"] as JSON)
         }
     }

@@ -9,22 +9,34 @@ class JiraWebhooksService {
         return JiraUpdate.count()
     }
 
+    def reindex() {
+        def c = JiraUpdate.createCriteria().setMaxResults(1024)
+        def scroll = c.scroll()
+        while (true) {
+            scroll.get().each {
+                it.reindex()
+            }
+            if (!scroll.next()) {
+                break
+            }
+        }
+    }
+
     def parseAndSave(json) {
         if (json == null) {
             throw new IllegalArgumentException("Json must not be null")
         }
 
         def update = new JiraUpdate(
-                json: json.toString(),
                 date: DateUtils.now(),
-                action: "unknown",
-                ticket: "IHC-0",
+                json: json.toString(),
         )
 
         if (update.validate() && update.save(flush: true)) {
             return update
         } else {
-            throw new DomainPersistException("Can't save", update.errors.allErrors)
+            log.error("Can't save JiraUpdate: ${update.errors.allErrors}")
+            throw new DomainPersistException("Can't save JiraUpdate: ${update.errors.allErrors}")
         }
     }
 }
