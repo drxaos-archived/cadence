@@ -5,15 +5,11 @@ class Person {
 
     static transients = ['roles']
 
-    transient springSecurityService
-
     String username
     String email
-
     String fullname
-
     String epassword
-    String salt = 'test-salt'
+    String salt
 
     boolean enabled
     boolean accountExpired
@@ -32,26 +28,9 @@ class Person {
 
     Set<Role> getRoles() {
         def result = new HashSet<Role>()
-        authorities.each {Authority authority ->
+        authorities.each { Authority authority ->
             result.addAll(authority.roles)
         }
         return result
-    }
-
-
-    // Password
-
-    def beforeInsert() {
-        encodePassword()
-    }
-
-    def beforeUpdate() {
-        if (isDirty('epassword')) {
-            encodePassword()
-        }
-    }
-
-    protected void encodePassword() {
-        epassword = springSecurityService.encodePassword(epassword, salt)
     }
 }
