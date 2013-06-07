@@ -23,10 +23,14 @@
         src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 
 <div id="status" role="complementary">
-    <h1>Administration</h1>
+    <h1>Hello, ${ui_person?.username ?: "anonymous"}</h1>
     <ul>
         <li><g:link uri="/">Home</g:link></li>
+        <li><g:link controller="book" action="index">Books example</g:link></li>
         <li><g:link controller="webHooks" action="index">Web Hooks</g:link></li>
+        <sec:ifLoggedIn>
+            <br/><li><g:link controller="logout" action="index">Logout</g:link></li>
+        </sec:ifLoggedIn>
     </ul>
 </div>
 
