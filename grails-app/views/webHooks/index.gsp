@@ -11,7 +11,6 @@
     <li>Jira: <strong>${jira}</strong></li>
     <li>Fisheye: <strong>${fisheye}</strong></li>
     <li>Bamboo: <strong>${bamboo}</strong></li>
-    <li>Git: <strong>${git}</strong></li>
 </ul>
 </body>
 </html>

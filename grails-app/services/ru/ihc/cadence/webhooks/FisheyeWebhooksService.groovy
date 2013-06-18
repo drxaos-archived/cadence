@@ -4,12 +4,12 @@ import org.springframework.transaction.annotation.Transactional
 import ru.ihc.cadence.exceptions.domain.DomainPersistException
 import ru.ihc.cadence.exceptions.webhooks.WebhookSecurityException
 
-class JiraWebhooksService {
+class FisheyeWebhooksService {
 
     def grailsApplication
 
     def checkWebhookKey(String key) throws WebhookSecurityException {
-        def configKey = grailsApplication.config.ru.ihc.cadence.webhooks.jira.key
+        def configKey = grailsApplication.config.ru.ihc.cadence.webhooks.fisheye.key
         if (key != configKey) {
             throw new WebhookSecurityException("unauthorized")
         }
@@ -17,12 +17,12 @@ class JiraWebhooksService {
     }
 
     def countUpdates() {
-        return JiraUpdate.count()
+        return FisheyeUpdate.count()
     }
 
     @Transactional
     def reindex() {
-        def c = JiraUpdate.createCriteria().setMaxResults(1024)
+        def c = FisheyeUpdate.createCriteria().setMaxResults(1024)
         def scroll = c.scroll()
         while (true) {
             scroll.get().each {
@@ -40,17 +40,17 @@ class JiraWebhooksService {
             throw new IllegalArgumentException("Json must not be null")
         }
 
-        def update = JiraUpdate.build(json.toString())
+        def update = FisheyeUpdate.build(json.toString())
 
-        if (!update.action) {
+        if (!update.csid) {
             return null
         }
 
         if (update.validate() && update.save(flush: true)) {
             return update
         } else {
-            log.error("Can't save JiraUpdate: ${update.errors.allErrors}")
-            throw new DomainPersistException("Can't save JiraUpdate: ${update.errors.allErrors}")
+            log.error("Can't save FisheyeUpdate: ${update.errors.allErrors}")
+            throw new DomainPersistException("Can't save FisheyeUpdate: ${update.errors.allErrors}")
         }
     }
 }

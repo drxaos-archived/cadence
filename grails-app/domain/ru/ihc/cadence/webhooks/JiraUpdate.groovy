@@ -1,14 +1,15 @@
 package ru.ihc.cadence.webhooks
 
 import grails.converters.JSON
+import ru.ihc.cadence.utils.DateUtils
 
 class JiraUpdate {
 
     static constraints = {
         json nullable: false, maxSize: 10000
         date nullable: false
-        ticket nullable: true
-        parent nullable: true
+        story nullable: false
+        tasks nullable: true
         action nullable: true
     }
 
@@ -16,27 +17,30 @@ class JiraUpdate {
         table "webhooks_jira"
     }
 
-    Date date
-    String ticket
-    String parent
-    String action
-
     String json
 
-    def setJson(String json) {
-        this.json = json
-        reindex()
+    Date date
+
+    String tasks
+    String story
+
+    String action
+
+    static JiraUpdate build(String json) {
+        new JiraUpdate(json: json, date: DateUtils.now()).reindex()
     }
 
-    def reindex() {
+    JiraUpdate reindex() {
         def data = data()
 
         def statusChanged = data.changelog?.items?.find { it.field == "status" }
         if (statusChanged) {
             this.action = statusChanged.toString?.toLowerCase()
         }
-        this.ticket = data.issue?.key
-        this.parent = data.issue?.fields?.parent?.key
+        this.tasks = data.issue?.key
+        this.story = data.issue?.fields?.parent?.key
+
+        return this
     }
 
     def data() {
