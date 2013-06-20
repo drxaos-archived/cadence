@@ -42,7 +42,7 @@ class FisheyeWebhooksService {
 
         def update = FisheyeUpdate.build(json.toString())
 
-        if (!update.csid) {
+        if (!update || !update.csid) {
             return null
         }
 

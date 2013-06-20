@@ -42,7 +42,7 @@ class JiraWebhooksService {
 
         def update = JiraUpdate.build(json.toString())
 
-        if (!update.action) {
+        if (!update || !update.action) {
             return null
         }
 

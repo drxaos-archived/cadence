@@ -36,6 +36,10 @@ class FisheyeUpdate {
 
         def matcher = (data.changeset?.comment =~ /^([A-Z]+-[0-9]+)\s(\((([A-Z]+-[0-9]+)[^)]*)+\))?.+$/)
 
+        if (matcher.size() == 0) {
+            return null
+        }
+
         this.story = matcher[0][1]
         this.tasks = matcher[0][3]
         this.csid = data.changeset?.csid

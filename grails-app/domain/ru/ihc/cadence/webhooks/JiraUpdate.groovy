@@ -36,7 +36,10 @@ class JiraUpdate {
         def statusChanged = data.changelog?.items?.find { it.field == "status" }
         if (statusChanged) {
             this.action = statusChanged.toString?.toLowerCase()
+        } else {
+            return null
         }
+
         this.tasks = data.issue?.key
         this.story = data.issue?.fields?.parent?.key
 
