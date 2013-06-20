@@ -12,5 +12,11 @@
     <li>Fisheye: <strong>${fisheye}</strong></li>
     <li>Bamboo: <strong>${bamboo}</strong></li>
 </ul>
+
+<div>
+    <g:each in="${list}" var="event">
+        <p>[<g:formatDate date="${event.date}" format="dd.MM.yyyy HH:mm:ss"/>] Event by ${event.type}: ${event.story} ${event.action} ${event.info}</p>
+    </g:each>
+</div>
 </body>
 </html>

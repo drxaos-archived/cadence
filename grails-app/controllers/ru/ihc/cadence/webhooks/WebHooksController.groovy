@@ -9,6 +9,7 @@ class WebHooksController {
 
     def jiraWebhooksService
     def fisheyeWebhooksService
+    def flowService
 
     @Secured(['ROLE_HOOKS'])
     def index() {
@@ -16,6 +17,7 @@ class WebHooksController {
                 jira: jiraWebhooksService.countUpdates(),
                 fisheye: fisheyeWebhooksService.countUpdates(),
                 bamboo: "N/A",
+                list: flowService.listEvents()
         ]
     }
 

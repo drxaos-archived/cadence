@@ -40,6 +40,11 @@ class JiraUpdate {
         this.tasks = data.issue?.key
         this.story = data.issue?.fields?.parent?.key
 
+        if (this.tasks && !this.story) {
+            this.story = this.tasks
+            this.tasks = null
+        }
+
         return this
     }
 
